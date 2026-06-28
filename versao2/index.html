@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Leão Market</title>
+    <meta name="description" content="Uma nova versão do marketplace com tema de leão, produtos, comunidade e carrinho." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="hero">
+        <nav class="navbar">
+          <a class="brand" href="#"><span class="brand-mark">🦁</span>Leão Market</a>
+          <div class="nav-links">
+            <a href="#produtos">Produtos</a>
+            <a href="#comunidade">Comunidade</a>
+            <a href="#afiliados">Afiliados</a>
+          </div>
+          <div class="nav-actions">
+            <button class="btn btn-secondary" id="cartButton" type="button">Carrinho (0)</button>
+            <button class="btn btn-primary" id="loginButton" type="button">Entrar</button>
+          </div>
+        </nav>
+
+        <div class="hero-content">
+          <div>
+            <p class="eyebrow">Marketplace com personalidade</p>
+            <h1>Compare, compre e compartilhe com força e confiança.</h1>
+            <p class="hero-text">Uma comunidade voltada para produtos recomendados, ofertas e decisões mais inteligentes.</p>
+            <div class="hero-actions">
+              <a class="btn btn-primary" href="#produtos">Ver produtos</a>
+              <a class="btn btn-secondary" href="#comunidade">Comunidade</a>
+            </div>
+          </div>
+          <div class="hero-card">
+            <h3>Por que escolher o Leão Market?</h3>
+            <ul>
+              <li>Produtos com avaliações reais</li>
+              <li>Comparativos rápidos</li>
+              <li>Comissões afi liadas transparentes</li>
+            </ul>
+          </div>
+        </div>
+      </header>
+
+      <main>
+        <section id="produtos" class="section">
+          <div class="section-head">
+            <p class="eyebrow">Produtos</p>
+            <h2>Seleção premium para cada estilo</h2>
+          </div>
+          <div id="productsGrid" class="products-grid"></div>
+        </section>
+
+        <section id="comunidade" class="section alt-section">
+          <div class="section-head">
+            <p class="eyebrow">Comunidade</p>
+            <h2>Compartilhe experiências e ajude outros compradores</h2>
+          </div>
+          <div class="community-grid">
+            <form id="postForm" class="panel">
+              <h3>Nova recomendação</h3>
+              <input type="text" id="postTitle" placeholder="Título" required />
+              <input type="text" id="postCategory" placeholder="Categoria" required />
+              <textarea id="postComment" rows="4" placeholder="Conte sua opinião" required></textarea>
+              <button class="btn btn-primary" type="submit">Publicar</button>
+            </form>
+            <div id="postsList" class="posts-list"></div>
+          </div>
+        </section>
+
+        <section id="afiliados" class="section">
+          <div class="section-head">
+            <p class="eyebrow">Afiliados</p>
+            <h2>Simulador de comissão</h2>
+          </div>
+          <div class="affiliate-grid">
+            <div class="panel">
+              <label for="saleValue">Valor da venda</label>
+              <input type="number" id="saleValue" placeholder="Digite o valor" />
+              <button class="btn btn-primary" id="registerSale" type="button">Registrar venda</button>
+              <div class="result-box">
+                <span>Comissão de 3%:</span>
+                <strong id="commissionValue">R$ 0,00</strong>
+              </div>
+            </div>
+            <div class="panel">
+              <h3>Resumo</h3>
+              <p id="summaryText">Nenhuma venda registrada ainda.</p>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <div id="cartPanel" class="panel-overlay hidden" aria-hidden="true">
+      <div class="panel-card">
+        <button class="close-btn" id="closeCart" type="button">×</button>
+        <h3>Carrinho</h3>
+        <div id="cartItems"></div>
+      </div>
+    </div>
+
+    <div id="authModal" class="panel-overlay hidden" aria-hidden="true">
+      <div class="panel-card">
+        <button class="close-btn" id="closeAuth" type="button">×</button>
+        <h3>Entrar</h3>
+        <input type="email" placeholder="E-mail" />
+        <input type="password" placeholder="Senha" />
+        <button class="btn btn-primary" type="button">Entrar</button>
+      </div>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>
