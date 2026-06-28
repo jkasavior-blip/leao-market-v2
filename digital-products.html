@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Produtos Digitais | Comparar & Comprar</title>
+    <meta name="description" content="Catálogo de produtos digitais com comparações e ofertas." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="hero compact-hero">
+        <nav class="navbar">
+          <a class="brand" href="index.html"><span class="brand-mark">🦁</span>Comparar & Comprar</a>
+          <div class="nav-links">
+            <a href="products.html">Produtos</a>
+            <a href="digital-products.html">Digitais</a>
+            <a href="index.html#comunidade">Comunidade</a>
+            <a href="index.html#afiliados">Afiliados</a>
+          </div>
+          <div class="nav-actions">
+            <button class="btn btn-secondary" id="cartBtn" type="button">Carrinho (0)</button>
+            <button class="btn btn-secondary" id="favoritesBtn" type="button">Favoritos (0)</button>
+            <a class="btn btn-secondary" href="index.html#cadastro">Criar conta</a>
+          </div>
+        </nav>
+
+        <div class="hero-content">
+          <div class="hero-copy">
+            <p class="eyebrow">Produtos digitais</p>
+            <h1>Descubra cursos, templates, planos e produtos digitais em destaque.</h1>
+            <p class="hero-text">
+              Esta área funciona como uma segunda vitrine para produtos que podem ser adquiridos
+              online e entregues de forma instantânea, como cursos e materiais digitais.
+            </p>
+          </div>
+          <div class="hero-card">
+            <h3>Ideal para</h3>
+            <ul>
+              <li>Aprendizado online</li>
+              <li>Ferramentas digitais</li>
+              <li>Materiais prontos para uso</li>
+            </ul>
+          </div>
+        </div>
+      </header>
+
+      <section class="section highlights-section">
+        <div class="panel">
+          <h3>Mais vendidos</h3>
+          <p>Os produtos digitais mais recomendados e procurados pela comunidade.</p>
+        </div>
+        <div class="panel">
+          <h3>Promoções</h3>
+          <p>Materiais e cursos com desconto para o início da jornada.</p>
+        </div>
+      </section>
+
+      <main class="section">
+        <div class="product-toolbar">
+          <input type="text" id="digitalSearch" placeholder="Buscar produto digital" />
+        </div>
+        <div id="digitalProductsGrid" class="products-grid"></div>
+      </main>
+    </div>
+
+    <div id="quickPanel" class="quick-panel hidden" aria-hidden="true">
+      <div class="quick-panel-card">
+        <button class="close-modal" id="closeQuickPanel" type="button">×</button>
+        <h3 id="quickPanelTitle">Resumo</h3>
+        <div id="quickPanelContent"></div>
+      </div>
+    </div>
+
+    <script src="digital-products.js"></script>
+  </body>
+</html>

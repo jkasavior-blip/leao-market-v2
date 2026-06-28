@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Produtos | Comparar & Comprar</title>
+    <meta name="description" content="Catálogo de produtos em destaque para comparação e compra." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="hero compact-hero">
+        <nav class="navbar">
+          <a class="brand" href="index.html"><span class="brand-mark">🦁</span>Comparar & Comprar</a>
+          <div class="nav-links">
+            <a href="products.html">Produtos</a>
+            <a href="digital-products.html">Digitais</a>
+            <a href="index.html#comunidade">Comunidade</a>
+            <a href="index.html#afiliados">Afiliados</a>
+          </div>
+          <div class="nav-actions">
+            <button class="btn btn-secondary" id="cartBtn" type="button">Carrinho (0)</button>
+            <button class="btn btn-secondary" id="favoritesBtn" type="button">Favoritos (0)</button>
+            <a class="btn btn-secondary" href="cart.html">Ver carrinho</a>
+            <a class="btn btn-secondary" href="index.html#cadastro">Criar conta</a>
+          </div>
+        </nav>
+
+        <div class="hero-content">
+          <div class="hero-copy">
+            <p class="eyebrow">Catálogo de produtos</p>
+            <h1>Descubra produtos recomendados com comparações claras e ofertas em destaque.</h1>
+            <p class="hero-text">
+              Esta página funciona como uma vitrine onde os usuários encontram produtos,
+              visualizam preços, categorias e acessam as ofertas com links de afiliados.
+            </p>
+          </div>
+          <div class="hero-card">
+            <h3>O que você encontra aqui</h3>
+            <ul>
+              <li>Produtos organizados por categoria</li>
+              <li>Preços e destaque de recomendação</li>
+              <li>Links para comprar com segurança</li>
+            </ul>
+          </div>
+        </div>
+      </header>
+
+      <section class="section highlights-section">
+        <div class="panel">
+          <h3>Mais vendidos</h3>
+          <p>Os produtos mais escolhidos pela comunidade estão sempre no topo.</p>
+        </div>
+        <div class="panel">
+          <h3>Promoções</h3>
+          <p>Ofertas especiais com preço mais atrativo e condições exclusivas.</p>
+        </div>
+      </section>
+
+      <main class="section">
+        <div class="product-toolbar">
+          <input type="text" id="productSearch" placeholder="Buscar produto" />
+          <select id="categoryFilter">
+            <option value="all">Todas as categorias</option>
+            <option value="Tecnologia">Tecnologia</option>
+            <option value="Casa">Casa</option>
+            <option value="Esporte">Esporte</option>
+            <option value="Digitais">Digitais</option>
+          </select>
+        </div>
+
+        <div id="productsGrid" class="products-grid"></div>
+      </main>
+    </div>
+
+    <div id="quickPanel" class="quick-panel hidden" aria-hidden="true">
+      <div class="quick-panel-card">
+        <button class="close-modal" id="closeQuickPanel" type="button">×</button>
+        <h3 id="quickPanelTitle">Resumo</h3>
+        <div id="quickPanelContent"></div>
+      </div>
+    </div>
+
+    <div id="productModal" class="modal hidden" aria-hidden="true">
+      <div class="modal-card product-detail-modal">
+        <button class="close-modal" id="closeProductModal" type="button">×</button>
+        <div id="productModalContent"></div>
+      </div>
+    </div>
+
+    <script src="products.js"></script>
+  </body>
+</html>

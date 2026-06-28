@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Comparar & Comprar</title>
+    <meta
+      name="description"
+      content="Uma comunidade para comparar produtos, compartilhar experiências e encontrar ofertas com links afiliados."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="hero">
+        <nav class="navbar">
+          <a class="brand" href="index.html"><span class="brand-mark">🦁</span>Comparar & Comprar</a>
+          <div class="nav-links">
+            <a href="products.html">Produtos</a>
+            <a href="digital-products.html">Digitais</a>
+            <a href="#comunidade">Comunidade</a>
+            <a href="#comparacoes">Comparações</a>
+            <a href="#afiliados">Afiliados</a>
+          </div>
+          <div class="nav-actions">
+            <a class="btn btn-secondary" href="cart.html">Carrinho</a>
+            <button class="btn btn-secondary" id="loginBtn">Entrar</button>
+            <button class="btn btn-primary" id="registerBtn">Criar conta</button>
+            <button class="btn btn-secondary hidden" id="logoutBtn">Sair</button>
+          </div>
+        </nav>
+
+        <div class="hero-content">
+          <div class="hero-copy">
+            <p class="eyebrow">Comunidade inteligente para comprar com confiança</p>
+            <h1>Compare produtos, compartilhe experiências e encontre a melhor decisão.</h1>
+            <p class="hero-text">
+              Um espaço onde pessoas podem publicar avaliações, discutir ferramentas,
+              comparar preços e ajudar outras pessoas a comprar com mais segurança.
+            </p>
+            <div class="hero-actions">
+              <a class="btn btn-primary" href="#cadastro">Criar conta</a>
+              <a class="btn btn-secondary" href="products.html">Ver produtos</a>
+            </div>
+            <div class="trust-badges">
+              <span>✓ Comunidade ativa</span>
+              <span>✓ Comparações objetivas</span>
+              <span>✓ Comissão transparente</span>
+            </div>
+          </div>
+
+          <div class="hero-card">
+            <h3>O que a plataforma oferece</h3>
+            <ul>
+              <li>Comparações rápidas entre produtos similares</li>
+              <li>Postagens da comunidade com avaliações reais</li>
+              <li>Links afiliados com comissão de 3% sobre vendas</li>
+            </ul>
+          </div>
+        </div>
+      </header>
+
+      <section class="stats-section">
+        <div class="stat-card">
+          <strong id="postCount">0</strong>
+          <span>postagens</span>
+        </div>
+        <div class="stat-card">
+          <strong id="memberCount">1</strong>
+          <span>membros ativos</span>
+        </div>
+        <div class="stat-card">
+          <strong id="commissionCount">R$ 0,00</strong>
+          <span>saldo simulado</span>
+        </div>
+      </section>
+
+      <section id="cadastro" class="section signup-section">
+        <div class="section-heading">
+          <p class="eyebrow">Cadastro</p>
+          <h2>Crie sua conta e participe da comunidade</h2>
+          <p>
+            Cadastre-se para salvar produtos, acompanhar avaliações e receber recomendações
+            mais alinhadas ao seu perfil.
+          </p>
+        </div>
+
+        <div class="signup-grid">
+          <form id="mainRegisterForm" class="panel">
+            <h3>Cadastro rápido</h3>
+            <input type="text" id="mainRegisterName" placeholder="Seu nome" required />
+            <input type="email" id="mainRegisterEmail" placeholder="E-mail" required />
+            <input type="password" id="mainRegisterPassword" placeholder="Crie uma senha" required />
+            <input type="password" id="mainRegisterConfirmPassword" placeholder="Confirme a senha" required />
+            <input type="text" id="mainRegisterInterest" placeholder="Interesse principal (ex.: tecnologia)" />
+            <button class="btn btn-primary" type="submit">Criar conta</button>
+            <p id="registerMessage" class="form-message"></p>
+          </form>
+
+          <div class="panel benefits-card">
+            <h3>Por que se cadastrar?</h3>
+            <ul>
+              <li>Salve produtos favoritos e listas de comparação</li>
+              <li>Receba recomendações personalizadas</li>
+              <li>Acompanhe ofertas e comissões de afiliados</li>
+            </ul>
+            <a class="btn btn-secondary" href="products.html">Explorar produtos</a>
+          </div>
+        </div>
+      </section>
+
+      <main>
+        <section id="comunidade" class="section">
+          <div class="section-heading">
+            <p class="eyebrow">Comunidade</p>
+            <h2>Publique recomendações e ajude outras pessoas</h2>
+            <p>
+              Crie posts com opinião, preço, categoria e link para a oferta. A comunidade pode
+              discutir, comparar e validar cada indicação.
+            </p>
+          </div>
+
+          <div class="community-layout">
+            <form id="postForm" class="panel">
+              <h3>Nova recomendação</h3>
+              <input type="text" id="postTitle" placeholder="Título da recomendação" required />
+              <input type="text" id="postCategory" placeholder="Categoria" required />
+              <input type="text" id="postProduct" placeholder="Nome do produto" required />
+              <input type="number" id="postPrice" placeholder="Preço em R$" min="0" step="0.01" required />
+              <input type="url" id="postLink" placeholder="Link da oferta" required />
+              <textarea id="postComment" rows="4" placeholder="Conte sua experiência ou por que recomenda" required></textarea>
+              <button class="btn btn-primary" type="submit">Publicar</button>
+            </form>
+
+            <div id="postsList" class="posts-list"></div>
+          </div>
+        </section>
+
+        <section id="comparacoes" class="section alt-section">
+          <div class="section-heading">
+            <p class="eyebrow">Comparações</p>
+            <h2>Veja opções em destaque antes de comprar</h2>
+            <p>
+              O site organiza comparativos com preço, recurso principal e indicação de uso.
+            </p>
+          </div>
+
+          <div class="comparison-grid">
+            <article class="panel comparison-card highlighted">
+              <h3>Produto Premium</h3>
+              <p>Mais recursos e melhor acabamento</p>
+              <span>R$ 349</span>
+            </article>
+            <article class="panel comparison-card">
+              <h3>Produto Essencial</h3>
+              <p>Ideal para uso diário e custo-benefício</p>
+              <span>R$ 199</span>
+            </article>
+            <article class="panel comparison-card">
+              <h3>Produto Inicial</h3>
+              <p>Boa escolha para quem está começando</p>
+              <span>R$ 149</span>
+            </article>
+          </div>
+        </section>
+
+        <section id="afiliados" class="section">
+          <div class="section-heading">
+            <p class="eyebrow">Modelo de monetização</p>
+            <h2>Receba uma comissão financeira de 3% em vendas afiliadas</h2>
+            <p>
+              Quando um usuário compra um produto indicado via link afiliado de outra loja,
+              a plataforma ganha 3% da venda realizada.
+            </p>
+          </div>
+
+          <div class="affiliate-layout">
+            <div class="panel calculator-card">
+              <h3>Simulador de comissão</h3>
+              <p class="helper-text">Teste o fluxo de recebimento como se fosse uma venda afiliada real.</p>
+              <label for="saleValue">Valor da venda</label>
+              <div class="input-row">
+                <input type="number" id="saleValue" placeholder="Digite o valor" min="0" step="0.01" />
+                <button class="btn btn-primary" id="registerSaleBtn" type="button">Registrar venda</button>
+              </div>
+              <div class="calculator-result">
+                <span>Comissão de 3%:</span>
+                <strong id="commissionValue">R$ 0,00</strong>
+              </div>
+              <div class="mini-stats">
+                <div>
+                  <span>Vendas testadas</span>
+                  <strong id="saleCount">0</strong>
+                </div>
+                <div>
+                  <span>Última comissão</span>
+                  <strong id="lastCommission">R$ 0,00</strong>
+                </div>
+              </div>
+            </div>
+
+            <div class="panel benefits-card">
+              <h3>Por que isso funciona bem</h3>
+              <ul>
+                <li>Usuário descobre um produto na comunidade</li>
+                <li>O link leva para uma loja ou marketplace</li>
+                <li>Se houver compra, a plataforma recebe 3% do valor</li>
+                <li>O painel mostra o saldo simulado em tempo real</li>
+              </ul>
+              <button class="btn btn-secondary" id="resetDemoBtn" type="button">Resetar demo</button>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <footer class="footer">
+        <p>Comparar & Comprar © 2026 — comunidade, comparações e recomendações.</p>
+      </footer>
+    </div>
+
+    <div id="authModal" class="modal hidden" aria-hidden="true">
+      <div class="modal-card">
+        <button class="close-modal" id="closeModal" type="button">×</button>
+        <div class="auth-tabs">
+          <button class="auth-tab active" data-mode="login" type="button">Entrar</button>
+          <button class="auth-tab" data-mode="register" type="button">Cadastrar</button>
+        </div>
+
+        <form id="loginForm" class="auth-form">
+          <input type="email" id="loginEmail" placeholder="E-mail" required />
+          <input type="password" id="loginPassword" placeholder="Senha" required />
+          <button class="btn btn-primary" type="submit">Entrar</button>
+        </form>
+
+        <form id="registerForm" class="auth-form hidden">
+          <input type="text" id="registerName" placeholder="Seu nome" required />
+          <input type="email" id="registerEmail" placeholder="E-mail" required />
+          <input type="password" id="registerPassword" placeholder="Senha" required />
+          <button class="btn btn-primary" type="submit">Criar conta</button>
+        </form>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
