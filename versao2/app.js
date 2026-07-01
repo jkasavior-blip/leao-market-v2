@@ -1,16 +1,30 @@
-const products = [
+const defaultProducts = [
   { id: 1, name: 'Notebook Premium', price: 2599, category: 'Tecnologia', image: 'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=900&q=80', description: 'Leve, rápido e ideal para estudos e trabalho.', badge: 'Mais vendido' },
   { id: 2, name: 'Cadeira Ergonômica', price: 899, category: 'Casa', image: 'https://images.unsplash.com/photo-1519947486511-46149fa0a254?auto=format&fit=crop&w=900&q=80', description: 'Conforto e ajuste para longas horas.', badge: 'Recomendado' },
   { id: 3, name: 'Bola de Basquete', price: 159, category: 'Esporte', image: 'https://images.unsplash.com/photo-1517649763962-0c623066013b?auto=format&fit=crop&w=900&q=80', description: 'Boa aderência e ótima para treinos.', badge: 'Promoção' }
 ];
+
+const storageKeys = {
+  products: 'lion-products',
+  cart: 'lion-cart',
+  favorites: 'lion-favorites',
+  reviews: 'lion-reviews'
+};
 
 const posts = [
   { title: 'Notebook para programação', category: 'Tecnologia', text: 'Excelente bateria e desempenho para o dia a dia.' },
   { title: 'Cadeira para home office', category: 'Casa', text: 'Muito confortável para longas jornadas de estudo.' }
 ];
 
-let cart = JSON.parse(localStorage.getItem('lion-cart')) || [];
-let favorites = JSON.parse(localStorage.getItem('lion-favorites')) || [];
+const defaultReviews = [
+  { id: 1, name: 'Marta', rating: 5, comment: 'Produtos bem escolhidos e a comunidade ajuda a decidir rápido.' },
+  { id: 2, name: 'Caio', rating: 4, comment: 'Gostei da ideia do carrinho e das recomendações em destaque.' }
+];
+
+let products = JSON.parse(localStorage.getItem(storageKeys.products)) || defaultProducts;
+let cart = JSON.parse(localStorage.getItem(storageKeys.cart)) || [];
+let favorites = JSON.parse(localStorage.getItem(storageKeys.favorites)) || [];
+let reviews = JSON.parse(localStorage.getItem(storageKeys.reviews)) || defaultReviews;
 
 const productsGrid = document.getElementById('productsGrid');
 const cartButton = document.getElementById('cartButton');
@@ -22,6 +36,12 @@ const authModal = document.getElementById('authModal');
 const closeAuth = document.getElementById('closeAuth');
 const postForm = document.getElementById('postForm');
 const postsList = document.getElementById('postsList');
+const productForm = document.getElementById('productForm');
+const productMessage = document.getElementById('productMessage');
+const favoritesList = document.getElementById('favoritesList');
+const featuredList = document.getElementById('featuredList');
+const reviewForm = document.getElementById('reviewForm');
+const reviewsList = document.getElementById('reviewsList');
 const saleValue = document.getElementById('saleValue');
 const commissionValue = document.getElementById('commissionValue');
 const registerSale = document.getElementById('registerSale');
@@ -35,8 +55,20 @@ function updateCartButton() {
   cartButton.textContent = `Carrinho (${cart.length})`;
 }
 
+function saveProducts() {
+  localStorage.setItem(storageKeys.products, JSON.stringify(products));
+}
+
 function saveCart() {
-  localStorage.setItem('lion-cart', JSON.stringify(cart));
+  localStorage.setItem(storageKeys.cart, JSON.stringify(cart));
+}
+
+function saveFavorites() {
+  localStorage.setItem(storageKeys.favorites, JSON.stringify(favorites));
+}
+
+function saveReviews() {
+  localStorage.setItem(storageKeys.reviews, JSON.stringify(reviews));
 }
 
 function renderProducts() {
@@ -72,6 +104,44 @@ function renderPosts() {
     `;
     postsList.appendChild(card);
   });
+}
+
+function renderFavorites() {
+  if (!favoritesList) return;
+  const favoriteProducts = products.filter((product) => favorites.includes(product.id));
+  favoritesList.innerHTML = favoriteProducts.length
+    ? favoriteProducts.map((product) => `
+        <div class="favorite-item">
+          <strong>${product.name}</strong>
+          <span>${formatCurrency(product.price)}</span>
+        </div>
+      `).join('')
+    : '<p>Nenhum favorito ainda.</p>';
+}
+
+function renderFeatured() {
+  if (!featuredList) return;
+  const featuredProducts = products.slice(0, 3);
+  featuredList.innerHTML = featuredProducts.map((product) => `
+    <div class="featured-item">
+      <strong>${product.name}</strong>
+      <span>${product.category}</span>
+      <small>${formatCurrency(product.price)}</small>
+    </div>
+  `).join('');
+}
+
+function renderReviews() {
+  if (!reviewsList) return;
+  reviewsList.innerHTML = reviews.map((review) => `
+    <article class="review-item">
+      <div class="review-meta">
+        <strong>${review.name}</strong>
+        <span>${'★'.repeat(review.rating)}${'☆'.repeat(5 - review.rating)}</span>
+      </div>
+      <p>${review.comment}</p>
+    </article>
+  `).join('');
 }
 
 function openCart() {
@@ -115,7 +185,9 @@ productsGrid.addEventListener('click', (event) => {
     } else {
       favorites.push(id);
     }
+    saveFavorites();
     renderProducts();
+    renderFavorites();
   }
 });
 
@@ -142,6 +214,52 @@ postForm.addEventListener('submit', (event) => {
   postForm.reset();
 });
 
+productForm.addEventListener('submit', (event) => {
+  event.preventDefault();
+  const name = document.getElementById('productName').value.trim();
+  const price = Number(document.getElementById('productPrice').value);
+  const category = document.getElementById('productCategory').value.trim();
+  const image = document.getElementById('productImage').value.trim();
+  const description = document.getElementById('productDescription').value.trim();
+
+  if (!name || !price || !category || !description) {
+    productMessage.textContent = 'Preencha os campos obrigatórios.';
+    return;
+  }
+
+  const newProduct = {
+    id: Date.now(),
+    name,
+    price,
+    category,
+    image: image || 'https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=900&q=80',
+    description,
+    badge: 'Novo'
+  };
+
+  products.unshift(newProduct);
+  saveProducts();
+  renderProducts();
+  renderFeatured();
+  renderFavorites();
+  productForm.reset();
+  productMessage.textContent = 'Produto cadastrado com sucesso!';
+});
+
+reviewForm.addEventListener('submit', (event) => {
+  event.preventDefault();
+  const name = document.getElementById('reviewName').value.trim();
+  const rating = Number(document.getElementById('reviewRating').value);
+  const comment = document.getElementById('reviewComment').value.trim();
+
+  if (!name || !rating || !comment) return;
+
+  reviews.unshift({ id: Date.now(), name, rating, comment });
+  saveReviews();
+  renderReviews();
+  reviewForm.reset();
+});
+
 registerSale.addEventListener('click', () => {
   const value = Number(saleValue.value || 0);
   const commission = value * 0.03;
@@ -152,3 +270,6 @@ registerSale.addEventListener('click', () => {
 updateCartButton();
 renderProducts();
 renderPosts();
+renderFavorites();
+renderFeatured();
+renderReviews();

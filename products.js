@@ -1,4 +1,10 @@
-const products = [
+const STORAGE_KEYS = {
+  products: 'compare-products',
+  cart: 'compare-cart',
+  favorites: 'compare-favorites'
+};
+
+const initialProducts = [
   {
     id: 1,
     name: 'Notebook Ultralight',
@@ -7,6 +13,9 @@ const products = [
     rating: '4.8/5',
     badge: 'Mais vendido',
     emoji: '💻',
+    store: 'Amazon',
+    supplier: 'TechDropship',
+    dropship: true,
     description: 'Leve, rápido e ideal para quem trabalha e estuda o dia todo.',
     highlights: ['Processador eficiente', 'Bateria de longa duração', 'Tela nítida para estudo e trabalho'],
     guarantee: 'Garantia de 12 meses e frete rápido.',
@@ -24,6 +33,9 @@ const products = [
     rating: '4.6/5',
     badge: 'Recomendado',
     emoji: '🪑',
+    store: 'Mercado Livre',
+    supplier: 'HomeHub',
+    dropship: false,
     description: 'Conforto e suporte para longas horas de estudo ou trabalho.',
     highlights: ['Encosto ajustável', 'Altura regulável', 'Ideal para home office'],
     guarantee: 'Entrega segura e apoio para montagem.',
@@ -40,6 +52,9 @@ const products = [
     rating: '4.4/5',
     badge: 'Promoção',
     emoji: '🏀',
+    store: 'Shopee',
+    supplier: 'SportLink',
+    dropship: true,
     description: 'Boa para treino e uso casual com excelente grip.',
     highlights: ['Material resistente', 'Boa aderência', 'Perfeita para treino e lazer'],
     guarantee: 'Troca simples e envio rápido.',
@@ -56,6 +71,9 @@ const products = [
     rating: '4.7/5',
     badge: 'Top review',
     emoji: '🎧',
+    store: 'Amazon',
+    supplier: 'AudioExpress',
+    dropship: false,
     description: 'Som limpo, bateria longa e sem fio para o dia inteiro.',
     highlights: ['Conexão estável', 'Bateria para o dia todo', 'Som com excelente nitidez'],
     guarantee: 'Garantia de 6 meses e atendimento rápido.',
@@ -72,6 +90,9 @@ const products = [
     rating: '4.9/5',
     badge: 'Mais procurado',
     emoji: '🎨',
+    store: 'Mercado Livre',
+    supplier: 'EducaDropship',
+    dropship: false,
     description: 'Aprenda interfaces modernas com aulas práticas e projeto final.',
     highlights: ['Aulas práticas', 'Projeto final para portfolio', 'Acesso imediato'],
     guarantee: 'Acesso vitalício e suporte para dúvidas.',
@@ -88,6 +109,9 @@ const products = [
     rating: '4.5/5',
     badge: 'Novo',
     emoji: '📈',
+    store: 'Shopee',
+    supplier: 'DigitalWins',
+    dropship: false,
     description: 'Modelo prático para criar estratégias de alcance e vendas online.',
     highlights: ['Estratégias prontas', 'Modelo de campanha', 'Fácil de adaptar'],
     guarantee: 'Arquivo digital entregue em até 24 horas.',
@@ -101,6 +125,10 @@ const products = [
 const productsGrid = document.getElementById('productsGrid');
 const productSearch = document.getElementById('productSearch');
 const categoryFilter = document.getElementById('categoryFilter');
+const storeFilter = document.getElementById('storeFilter');
+const fulfillmentFilter = document.getElementById('fulfillmentFilter');
+const productForm = document.getElementById('productForm');
+const productFormMessage = document.getElementById('productFormMessage');
 const cartBtn = document.getElementById('cartBtn');
 const favoritesBtn = document.getElementById('favoritesBtn');
 const quickPanel = document.getElementById('quickPanel');
@@ -111,8 +139,9 @@ const productModal = document.getElementById('productModal');
 const productModalContent = document.getElementById('productModalContent');
 const closeProductModal = document.getElementById('closeProductModal');
 
-let cart = JSON.parse(localStorage.getItem('compare-cart')) || [];
-let favorites = JSON.parse(localStorage.getItem('compare-favorites')) || [];
+let products = JSON.parse(localStorage.getItem(STORAGE_KEYS.products)) || initialProducts;
+let cart = JSON.parse(localStorage.getItem(STORAGE_KEYS.cart)) || [];
+let favorites = JSON.parse(localStorage.getItem(STORAGE_KEYS.favorites)) || [];
 
 function formatCurrency(value) {
   return new Intl.NumberFormat('pt-BR', {
@@ -122,8 +151,9 @@ function formatCurrency(value) {
 }
 
 function saveState() {
-  localStorage.setItem('compare-cart', JSON.stringify(cart));
-  localStorage.setItem('compare-favorites', JSON.stringify(favorites));
+  localStorage.setItem(STORAGE_KEYS.products, JSON.stringify(products));
+  localStorage.setItem(STORAGE_KEYS.cart, JSON.stringify(cart));
+  localStorage.setItem(STORAGE_KEYS.favorites, JSON.stringify(favorites));
 }
 
 function updateButtons() {
@@ -169,6 +199,10 @@ function openProductModal(product) {
     <div class="product-detail-list">
       ${product.highlights.map((item) => `<li>${item}</li>`).join('')}
     </div>
+    <div class="product-supplier-info">
+      <p><strong>Fornecedor:</strong> ${product.supplier || 'Não informado'}</p>
+      <p><strong>Envio:</strong> ${product.dropship ? 'Dropshipping direto do fornecedor' : 'Estoque próprio / entrega rápida'}</p>
+    </div>
     <p class="product-detail-guarantee">${product.guarantee}</p>
     <div class="product-detail-actions">
       <button class="btn btn-primary" type="button" data-action="cart" data-id="${product.id}">Adicionar ao carrinho</button>
@@ -212,11 +246,22 @@ function toggleFavorite(productId) {
 function renderProducts() {
   const search = productSearch.value.toLowerCase();
   const category = categoryFilter.value;
+  const store = storeFilter?.value || 'all';
+  const fulfillment = fulfillmentFilter?.value || 'all';
 
   const filtered = products.filter((product) => {
-    const matchesSearch = product.name.toLowerCase().includes(search) || product.description.toLowerCase().includes(search);
+    const matchesSearch =
+      product.name.toLowerCase().includes(search) ||
+      product.description.toLowerCase().includes(search) ||
+      (product.supplier || '').toLowerCase().includes(search) ||
+      (product.store || 'Cadastrado').toLowerCase().includes(search);
     const matchesCategory = category === 'all' || product.category === category;
-    return matchesSearch && matchesCategory;
+    const matchesStore = store === 'all' || (product.store || 'Cadastrado') === store;
+    const matchesFulfillment =
+      fulfillment === 'all' ||
+      (fulfillment === 'dropship' && product.dropship) ||
+      (fulfillment === 'stock' && !product.dropship);
+    return matchesSearch && matchesCategory && matchesStore && matchesFulfillment;
   });
 
   productsGrid.innerHTML = '';
@@ -236,7 +281,15 @@ function renderProducts() {
     card.innerHTML = `
       <img class="product-image" src="${imageUrl}" alt="${product.name}" />
       <div class="product-emoji">${product.emoji}</div>
-      <div class="product-badges"><span>${product.badge}</span><span>${product.category}</span></div>
+      <div class="product-badges">
+        <span>${product.badge}</span>
+        <span>${product.category}</span>
+        <span>${product.store || 'Cadastrado'}</span>
+      </div>
+      <div class="product-labels">
+        ${product.supplier ? `<span class="product-chip">Fornecedor: ${product.supplier}</span>` : ''}
+        ${product.dropship ? '<span class="dropship-badge">Dropshipping</span>' : '<span class="product-chip">Em estoque</span>'}
+      </div>
       <h3>${product.name}</h3>
       <p>${product.description}</p>
       <div class="product-price">${formatCurrency(product.price)}</div>
@@ -259,6 +312,51 @@ function renderProducts() {
       </div>
     `;
     productsGrid.appendChild(card);
+  });
+}
+
+if (productForm) {
+  productForm.addEventListener('submit', (event) => {
+    event.preventDefault();
+    const name = document.getElementById('productName').value.trim();
+    const price = Number(document.getElementById('productPrice').value);
+    const category = document.getElementById('productCategory').value.trim();
+    const store = (document.getElementById('productStore').value.trim() || document.getElementById('productSource').value.trim() || 'Cadastrado').toString();
+    const supplier = document.getElementById('productSupplier').value.trim() || 'Fornecedor não definido';
+    const dropship = document.getElementById('productDropship').checked;
+    const link = document.getElementById('productLink').value.trim();
+    const description = document.getElementById('productDescription').value.trim();
+
+    if (!name || !price || !category || !description) {
+      productFormMessage.textContent = 'Preencha os campos obrigatórios.';
+      return;
+    }
+
+    const newProduct = {
+      id: Date.now(),
+      name,
+      category,
+      price,
+      rating: '4.5/5',
+      badge: 'Novo',
+      emoji: '🛍️',
+      store,
+      supplier,
+      dropship,
+      description,
+      highlights: ['Produto cadastrado pela comunidade', 'Disponível para comparação', 'Pode ser adicionado ao carrinho'],
+      guarantee: dropship
+        ? 'Entrega via fornecedor dropship, monitoramento simplificado.'
+        : 'Validação local para teste do protótipo.',
+      link: link || 'https://example.com',
+      reviews: []
+    };
+
+    products.unshift(newProduct);
+    saveState();
+    renderProducts();
+    productForm.reset();
+    productFormMessage.textContent = 'Produto cadastrado com sucesso!';
   });
 }
 
@@ -286,6 +384,8 @@ productsGrid.addEventListener('click', (event) => {
 
 productSearch.addEventListener('input', renderProducts);
 categoryFilter.addEventListener('change', renderProducts);
+storeFilter?.addEventListener('change', renderProducts);
+fulfillmentFilter?.addEventListener('change', renderProducts);
 if (cartBtn) {
   cartBtn.addEventListener('click', () => {
     const content = cart.length

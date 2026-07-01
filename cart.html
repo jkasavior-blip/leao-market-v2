@@ -46,7 +46,15 @@
             <div class="summary-row"><span>Frete</span><strong>Grátis</strong></div>
             <div class="summary-row"><span>Desconto</span><strong>R$ 0,00</strong></div>
             <div class="summary-row total"><span>Total</span><strong id="summaryTotal">R$ 0,00</strong></div>
+            <div class="payment-panel">
+              <p class="section-subtitle">Método de pagamento</p>
+              <label class="payment-option"><input type="radio" name="paymentMethod" value="pix" checked /> PIX</label>
+              <label class="payment-option"><input type="radio" name="paymentMethod" value="boleto" /> Boleto</label>
+              <p class="payment-note">Ao finalizar por PIX, você recebe a chave para pagamento instantâneo.</p>
+            </div>
             <button class="btn btn-primary" id="checkoutBtn" type="button">Finalizar compra</button>
+            <div id="paymentInfo" class="payment-info"></div>
+            <div class="cart-note">Itens com dropshipping serão encaminhados ao fornecedor assim que o pedido for confirmado.</div>
             <p id="checkoutMessage" class="form-message"></p>
           </aside>
         </div>

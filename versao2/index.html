@@ -53,7 +53,48 @@
             <p class="eyebrow">Produtos</p>
             <h2>Seleção premium para cada estilo</h2>
           </div>
+
+          <div class="panel product-form-panel">
+            <h3>Cadastrar novo produto</h3>
+            <form id="productForm" class="product-form">
+              <div class="form-row">
+                <input type="text" id="productName" placeholder="Nome do produto" required />
+                <input type="number" id="productPrice" placeholder="Preço em R$" min="0" step="0.01" required />
+              </div>
+              <div class="form-row">
+                <input type="text" id="productCategory" placeholder="Categoria" required />
+                <input type="url" id="productImage" placeholder="URL da imagem" />
+              </div>
+              <textarea id="productDescription" rows="3" placeholder="Descrição do produto" required></textarea>
+              <button class="btn btn-primary" type="submit">Salvar produto</button>
+              <p id="productMessage" class="form-message"></p>
+            </form>
+          </div>
+
           <div id="productsGrid" class="products-grid"></div>
+
+          <div class="panel favorites-panel">
+            <div class="section-head">
+              <p class="eyebrow">Favoritos</p>
+              <h3>Seus produtos marcados</h3>
+            </div>
+            <div id="favoritesList" class="favorites-list"></div>
+          </div>
+        </section>
+
+        <section id="destaques" class="section">
+          <div class="section-head">
+            <p class="eyebrow">Destaques</p>
+            <h2>Ofertas e seleções especiais da semana</h2>
+          </div>
+          <div class="highlight-grid">
+            <div class="panel highlight-card">
+              <h3>Promoção imperdível</h3>
+              <p>Frete grátis acima de R$ 500, selo de comunidade e ofertas escolhidas por compradores reais.</p>
+              <a class="btn btn-primary" href="#produtos">Explorar ofertas</a>
+            </div>
+            <div id="featuredList" class="panel featured-list"></div>
+          </div>
         </section>
 
         <section id="comunidade" class="section alt-section">
@@ -70,6 +111,30 @@
               <button class="btn btn-primary" type="submit">Publicar</button>
             </form>
             <div id="postsList" class="posts-list"></div>
+          </div>
+        </section>
+
+        <section id="avaliacoes" class="section">
+          <div class="section-head">
+            <p class="eyebrow">Avaliações</p>
+            <h2>Veja o que a comunidade está dizendo</h2>
+          </div>
+          <div class="community-grid">
+            <form id="reviewForm" class="panel">
+              <h3>Escrever avaliação</h3>
+              <input type="text" id="reviewName" placeholder="Seu nome" required />
+              <select id="reviewRating" required>
+                <option value="">Selecione uma nota</option>
+                <option value="5">★★★★★</option>
+                <option value="4">★★★★☆</option>
+                <option value="3">★★★☆☆</option>
+                <option value="2">★★☆☆☆</option>
+                <option value="1">★☆☆☆☆</option>
+              </select>
+              <textarea id="reviewComment" rows="4" placeholder="Conte sua experiência" required></textarea>
+              <button class="btn btn-primary" type="submit">Enviar avaliação</button>
+            </form>
+            <div id="reviewsList" class="posts-list"></div>
           </div>
         </section>
 

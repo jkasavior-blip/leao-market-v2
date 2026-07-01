@@ -18,18 +18,20 @@
   </head>
   <body>
     <div class="app-shell">
-      <header class="hero">
-        <nav class="navbar">
+      <header class="hero marketplace-hero">
+        <div class="top-banner">
+          <p>Ofertas em tempo real da Shopee, Amazon e AliExpress — compare, escolha e venda com dropshipping.</p>
+        </div>
+        <nav class="navbar marketplace-navbar">
           <a class="brand" href="index.html"><span class="brand-mark">🦁</span>Comparar & Comprar</a>
           <div class="nav-links">
-            <a href="products.html">Produtos</a>
+            <a href="products.html">Ofertas</a>
             <a href="digital-products.html">Digitais</a>
             <a href="#comunidade">Comunidade</a>
-            <a href="#comparacoes">Comparações</a>
-            <a href="#afiliados">Afiliados</a>
+            <a href="#afiliados">Dropshipping</a>
+            <a href="cart.html">Carrinho</a>
           </div>
           <div class="nav-actions">
-            <a class="btn btn-secondary" href="cart.html">Carrinho</a>
             <button class="btn btn-secondary" id="loginBtn">Entrar</button>
             <button class="btn btn-primary" id="registerBtn">Criar conta</button>
             <button class="btn btn-secondary hidden" id="logoutBtn">Sair</button>
@@ -38,33 +40,52 @@
 
         <div class="hero-content">
           <div class="hero-copy">
-            <p class="eyebrow">Comunidade inteligente para comprar com confiança</p>
-            <h1>Compare produtos, compartilhe experiências e encontre a melhor decisão.</h1>
+            <p class="eyebrow">Marketplace Unificado</p>
+            <h1>Ofertas da Shopee, Amazon e AliExpress em um mesmo lugar.</h1>
             <p class="hero-text">
-              Um espaço onde pessoas podem publicar avaliações, discutir ferramentas,
-              comparar preços e ajudar outras pessoas a comprar com mais segurança.
+              Compare preço, frete, avaliações e fornecedores com a experiência de um marketplace profissional.
             </p>
+            <div class="hero-search">
+              <input type="search" placeholder="Buscar produto, loja ou categoria" />
+              <button class="btn btn-primary">Buscar</button>
+            </div>
             <div class="hero-actions">
               <a class="btn btn-primary" href="#cadastro">Criar conta</a>
-              <a class="btn btn-secondary" href="products.html">Ver produtos</a>
+              <a class="btn btn-secondary" href="products.html">Ver catálogo</a>
             </div>
-            <div class="trust-badges">
-              <span>✓ Comunidade ativa</span>
-              <span>✓ Comparações objetivas</span>
-              <span>✓ Comissão transparente</span>
+            <div class="trust-badges marketplace-badges">
+              <span>Amazon</span>
+              <span>Shopee</span>
+              <span>AliExpress</span>
+              <span>Dropshipping</span>
             </div>
           </div>
 
-          <div class="hero-card">
-            <h3>O que a plataforma oferece</h3>
+          <div class="hero-card marketplace-panel">
+            <h3>O que você encontra aqui</h3>
             <ul>
-              <li>Comparações rápidas entre produtos similares</li>
-              <li>Postagens da comunidade com avaliações reais</li>
-              <li>Links afiliados com comissão de 3% sobre vendas</li>
+              <li>Busca inteligente com filtros de marketplace</li>
+              <li>Ofertas rápidas, comparações e frete grátis</li>
+              <li>Venda em dropshipping e compartilhe recomendações</li>
             </ul>
           </div>
         </div>
       </header>
+
+      <section class="marketplace-features section">
+        <div class="feature-card">
+          <strong>Frete Grátis</strong>
+          <p>Ofertas com frete grátis e entrega rápida em produtos selecionados.</p>
+        </div>
+        <div class="feature-card">
+          <strong>Multi-marketplace</strong>
+          <p>Comparação entre Amazon, Shopee e AliExpress em um único catálogo.</p>
+        </div>
+        <div class="feature-card">
+          <strong>Dropshipping</strong>
+          <p>Adicione produtos sem estoque e venda com fornecedores parceiros.</p>
+        </div>
+      </section>
 
       <section class="stats-section">
         <div class="stat-card">
@@ -116,6 +137,18 @@
       </section>
 
       <main>
+        <section class="section highlights-section">
+          <div class="panel">
+            <h3>Promoção da semana</h3>
+            <p>Frete grátis acima de R$ 500, selo de comunidade e ofertas selecionadas por compradores reais.</p>
+            <a class="btn btn-primary" href="products.html">Explorar ofertas</a>
+          </div>
+          <div class="panel">
+            <h3>Produtos em destaque</h3>
+            <p>Seleção de itens com boa avaliação, ofertas competitivas e fornecedores aprovados para venda.</p>
+          </div>
+        </section>
+
         <section id="comunidade" class="section">
           <div class="section-heading">
             <p class="eyebrow">Comunidade</p>
@@ -170,13 +203,37 @@
           </div>
         </section>
 
+        <section class="section">
+          <div class="section-heading">
+            <p class="eyebrow">Avaliações</p>
+            <h2>Veja o que a comunidade está dizendo</h2>
+          </div>
+          <div class="community-layout">
+            <form id="reviewForm" class="panel review-form">
+              <h3>Escrever avaliação</h3>
+              <input type="text" id="reviewName" placeholder="Seu nome" required />
+              <select id="reviewRating" required>
+                <option value="">Selecione uma nota</option>
+                <option value="5">★★★★★</option>
+                <option value="4">★★★★☆</option>
+                <option value="3">★★★☆☆</option>
+                <option value="2">★★☆☆☆</option>
+                <option value="1">★☆☆☆☆</option>
+              </select>
+              <textarea id="reviewComment" rows="4" placeholder="Conte sua experiência" required></textarea>
+              <button class="btn btn-primary" type="submit">Enviar avaliação</button>
+            </form>
+            <div id="reviewsList" class="posts-list"></div>
+          </div>
+        </section>
+
         <section id="afiliados" class="section">
           <div class="section-heading">
             <p class="eyebrow">Modelo de monetização</p>
             <h2>Receba uma comissão financeira de 3% em vendas afiliadas</h2>
             <p>
-              Quando um usuário compra um produto indicado via link afiliado de outra loja,
-              a plataforma ganha 3% da venda realizada.
+              Quando um usuário compra um produto indicado via link afiliado ou dropshipping,
+              a plataforma registra a venda e reforça o modelo de negócio.
             </p>
           </div>
 
@@ -209,11 +266,39 @@
               <h3>Por que isso funciona bem</h3>
               <ul>
                 <li>Usuário descobre um produto na comunidade</li>
-                <li>O link leva para uma loja ou marketplace</li>
+                <li>O link leva para uma loja, marketplace ou fornecedor dropship</li>
                 <li>Se houver compra, a plataforma recebe 3% do valor</li>
                 <li>O painel mostra o saldo simulado em tempo real</li>
               </ul>
               <button class="btn btn-secondary" id="resetDemoBtn" type="button">Resetar demo</button>
+            </div>
+          </div>
+        </section>
+
+        <section class="section alt-section dropship-section">
+          <div class="section-heading">
+            <p class="eyebrow">Dropshipping</p>
+            <h2>Construa um catálogo próprio sem precisar de estoque físico</h2>
+            <p>
+              Adicione produtos com entrega por fornecedores externos e venda com margem controlada.
+            </p>
+          </div>
+          <div class="community-layout">
+            <div class="panel">
+              <h3>Como funciona</h3>
+              <ul>
+                <li>Você cria ou compara produtos na plataforma</li>
+                <li>O cliente compra e o fornecedor envia direto para ele</li>
+                <li>Você ganha comissão e mantém o controle do pedido</li>
+              </ul>
+            </div>
+            <div class="panel">
+              <h3>Benefícios</h3>
+              <ul>
+                <li>Sem estoque físico e investimento inicial reduzido</li>
+                <li>Catálogo flexível com fornecedores locais e internacionais</li>
+                <li>Compatível com marketplaces e com vendas diretas</li>
+              </ul>
             </div>
           </div>
         </section>

@@ -3,7 +3,8 @@ const STORAGE_KEYS = {
   posts: 'comparar-posts',
   activeUser: 'comparar-active-user',
   balance: 'comparar-balance',
-  sales: 'comparar-sales'
+  sales: 'comparar-sales',
+  reviews: 'comparar-reviews'
 };
 
 const initialPosts = [
@@ -36,9 +37,15 @@ let posts = JSON.parse(localStorage.getItem(STORAGE_KEYS.posts)) || initialPosts
 let activeUser = JSON.parse(localStorage.getItem(STORAGE_KEYS.activeUser));
 let commissionBalance = Number(localStorage.getItem(STORAGE_KEYS.balance)) || 0;
 let sales = JSON.parse(localStorage.getItem(STORAGE_KEYS.sales)) || [];
+let reviews = JSON.parse(localStorage.getItem(STORAGE_KEYS.reviews)) || [
+  { id: 1, name: 'Marta', rating: 5, comment: 'A comunidade ajuda muito a decidir com confiança.' },
+  { id: 2, name: 'Caio', rating: 4, comment: 'Adorei a experiência de comparar produtos antes de comprar.' }
+];
 
 const postForm = document.getElementById('postForm');
 const postsList = document.getElementById('postsList');
+const reviewForm = document.getElementById('reviewForm');
+const reviewsList = document.getElementById('reviewsList');
 const loginBtn = document.getElementById('loginBtn');
 const registerBtn = document.getElementById('registerBtn');
 const logoutBtn = document.getElementById('logoutBtn');
@@ -72,6 +79,7 @@ function saveState() {
   localStorage.setItem(STORAGE_KEYS.activeUser, JSON.stringify(activeUser));
   localStorage.setItem(STORAGE_KEYS.balance, String(commissionBalance));
   localStorage.setItem(STORAGE_KEYS.sales, JSON.stringify(sales));
+  localStorage.setItem(STORAGE_KEYS.reviews, JSON.stringify(reviews));
 }
 
 function updateAuthUI() {
@@ -119,6 +127,22 @@ function renderPosts() {
     `;
     postsList.appendChild(card);
   });
+}
+
+function renderReviews() {
+  if (!reviewsList) {
+    return;
+  }
+
+  reviewsList.innerHTML = reviews.map((review) => `
+    <article class="post-card">
+      <div class="post-meta">
+        <span><strong>${review.name}</strong></span>
+        <span>• ${'★'.repeat(review.rating)}${'☆'.repeat(5 - review.rating)}</span>
+      </div>
+      <p>${review.comment}</p>
+    </article>
+  `).join('');
 }
 
 function renderStats() {
@@ -242,6 +266,24 @@ function handleMainRegister(event) {
   registerMessage.textContent = `Conta criada com sucesso, ${name}!`;
 }
 
+if (reviewForm) {
+  reviewForm.addEventListener('submit', (event) => {
+    event.preventDefault();
+    const name = document.getElementById('reviewName').value.trim();
+    const rating = Number(document.getElementById('reviewRating').value);
+    const comment = document.getElementById('reviewComment').value.trim();
+
+    if (!name || !rating || !comment) {
+      return;
+    }
+
+    reviews.unshift({ id: Date.now(), name, rating, comment });
+    saveState();
+    renderReviews();
+    reviewForm.reset();
+  });
+}
+
 if (postForm) {
   postForm.addEventListener('submit', (event) => {
   event.preventDefault();
@@ -318,22 +360,23 @@ if (saleValueInput && commissionValue) {
 }
 if (registerSaleBtn) {
   registerSaleBtn.addEventListener('click', () => {
-  const value = Number(saleValueInput.value || 0);
+    const value = Number(saleValueInput.value || 0);
 
-  if (!value || value <= 0) {
-    alert('Digite um valor maior que zero para registrar uma venda teste.');
-    return;
-  }
+    if (!value || value <= 0) {
+      alert('Digite um valor maior que zero para registrar uma venda teste.');
+      return;
+    }
 
-  const commission = value * 0.03;
-  commissionBalance += commission;
-  sales.push({ value, commission, date: new Date().toISOString() });
-  saveState();
-  renderStats();
-  saleValueInput.value = '';
-  commissionValue.textContent = formatCurrency(0);
-  alert(`Venda registrada com sucesso. Comissão de ${formatCurrency(commission)} adicionada ao saldo simulado.`);
-});
+    const commission = value * 0.03;
+    commissionBalance += commission;
+    sales.push({ value, commission, date: new Date().toISOString() });
+    saveState();
+    renderStats();
+    saleValueInput.value = '';
+    commissionValue.textContent = formatCurrency(0);
+    alert(`Venda registrada com sucesso. Comissão de ${formatCurrency(commission)} adicionada ao saldo simulado.`);
+  });
+}
 
 if (resetDemoBtn) {
   resetDemoBtn.addEventListener('click', () => {

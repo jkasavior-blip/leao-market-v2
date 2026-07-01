@@ -52,6 +52,19 @@ h1 { font-size: clamp(2rem, 4vw, 3.2rem); line-height: 1.1; margin: 10px 0; }
 .product-badges { display: flex; gap: 8px; flex-wrap: wrap; }
 .product-badges span { padding: 6px 10px; border-radius: 999px; background: rgba(255,191,47,0.15); color: var(--accent); font-size: 0.8rem; }
 .product-actions { display: flex; justify-content: space-between; align-items: center; gap: 8px; flex-wrap: wrap; margin-top: auto; }
+.favorites-panel { margin-top: 18px; }
+.favorites-list { display: grid; gap: 10px; }
+.favorite-item, .review-item, .featured-item { padding: 12px 14px; border-radius: 14px; border: 1px solid var(--border); background: rgba(255,255,255,0.04); }
+.favorite-item { display: flex; justify-content: space-between; align-items: center; gap: 10px; }
+.highlight-grid { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 18px; }
+.featured-list { display: flex; flex-direction: column; gap: 10px; }
+.highlight-card { display: flex; flex-direction: column; justify-content: center; gap: 10px; }
+.review-item { display: flex; flex-direction: column; gap: 6px; }
+.review-meta { display: flex; justify-content: space-between; gap: 8px; color: var(--muted); font-size: 0.9rem; }
+.product-form-panel { margin-bottom: 18px; }
+.product-form { display: flex; flex-direction: column; gap: 10px; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.form-message { min-height: 1.2em; color: var(--accent); margin: 0; }
 .community-grid, .affiliate-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
 .panel { padding: 18px; }
 .panel input, .panel textarea { width: 100%; padding: 12px 14px; margin-bottom: 10px; border-radius: 14px; border: 1px solid var(--border); background: rgba(255,255,255,0.04); color: var(--text); }
@@ -63,4 +76,4 @@ h1 { font-size: clamp(2rem, 4vw, 3.2rem); line-height: 1.1; margin: 10px 0; }
 .panel-card { width: min(100%, 480px); padding: 22px; border-radius: 24px; background: var(--panel); border: 1px solid var(--border); position: relative; }
 .close-btn { position: absolute; top: 12px; right: 12px; background: transparent; border: none; color: var(--text); font-size: 1.4rem; cursor: pointer; }
 .cart-item { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid var(--border); }
-@media (max-width: 900px) { .hero-content, .community-grid, .affiliate-grid, .products-grid { grid-template-columns: 1fr; } .navbar { border-radius: 24px; flex-direction: column; } }
+@media (max-width: 900px) { .hero-content, .community-grid, .affiliate-grid, .products-grid, .form-row, .highlight-grid { grid-template-columns: 1fr; } .navbar { border-radius: 24px; flex-direction: column; } }
