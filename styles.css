@@ -36,8 +36,24 @@ a:hover {
 
 button,
 input,
-textarea {
+textarea,
+select {
   font: inherit;
+}
+
+input,
+textarea,
+select {
+  color: var(--text);
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 14px;
+}
+
+input::placeholder,
+textarea::placeholder,
+select::placeholder {
+  color: rgba(255, 255, 255, 0.6);
 }
 
 .app-shell {
@@ -183,6 +199,8 @@ textarea {
     margin-bottom: 10px;
     font-size: 1.05rem;
     color: var(--accent);
+}
+
 .panel li,
 .post-meta,
 .post-footer {
@@ -585,7 +603,7 @@ textarea {
     display: flex;
     align-items: center;
     gap: 10px;
-    margin-bottom: 14px;
+    margin-bottom: 16px;
     color: var(--text);
     font-size: 0.95rem;
   }
@@ -595,7 +613,6 @@ textarea {
     height: 18px;
     accent-color: var(--accent);
   }
-  margin-bottom: 16px;
 }
 
 .product-detail-price {
