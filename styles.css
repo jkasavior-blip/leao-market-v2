@@ -118,6 +118,19 @@ select::placeholder {
   box-shadow: 0 0 0 2px rgba(193, 90, 125, 0.22), 0 10px 30px rgba(0, 0, 0, 0.16);
 }
 
+.brand-mark svg {
+  width: 24px;
+  height: 24px;
+}
+
+.brand-mark svg path {
+  fill: currentColor;
+}
+
+.brand-mark svg path[stroke] {
+  stroke: rgba(255,255,255,0.92);
+}
+
 .nav-links,
 .nav-actions {
   display: flex;
